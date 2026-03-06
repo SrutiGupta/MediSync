@@ -1,6 +1,6 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
-import genToken from "../utils/genToken.js"
+import genToken from "../config/token.js"
 
 export const SignUp=async (req,res)=>{
      try{const {name,email,password,role}=req.body;
@@ -32,7 +32,7 @@ export const SignUp=async (req,res)=>{
     }
 }
 
-export const loginUser = async (req, res) => {
+export const logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 

@@ -8,7 +8,7 @@ const UserSchema=new mongoose.Schema(
         email:{
             type:String,
             required:true,
-            unique
+            unique:true
         },
         role:
         {
@@ -21,7 +21,7 @@ const UserSchema=new mongoose.Schema(
             required:true
         },
         department:{
-            type:string
+            type:String
         }
     },{timestamps : true}
 );
