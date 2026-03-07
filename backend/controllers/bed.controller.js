@@ -68,6 +68,15 @@ export const assignBed = async (req, res) => {
       message: "Bed assigned successfully",
       bed
     });
+    // socket event
+const io = getIO();
+
+io.to("dashboardRoom").emit("bedAssigned", {
+  bedId: bed._id,
+  patientId: patient._id
+});
+
+io.to("dashboardRoom").emit("dashboardUpdated");
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -104,6 +113,14 @@ export const releaseBed = async (req, res) => {
     res.status(200).json({
       message: "Bed released successfully"
     });
+    // socket event
+const io = getIO();
+
+io.to("dashboardRoom").emit("bedReleased", {
+  bedId
+});
+
+io.to("dashboardRoom").emit("dashboardUpdated");
 
   } catch (error) {
     res.status(500).json({ message: error.message });
