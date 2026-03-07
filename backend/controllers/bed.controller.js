@@ -35,31 +35,32 @@ export const assignBed = async (req, res) => {
 
     const { patientId, bedId } = req.body;
 
-    const bed = await Bed.findById(bedId);
-
-    if (!bed) {
-      return res.status(404).json({ message: "Bed not found" });
-    }
-
-    if (bed.status === "occupied") {
-      return res.status(400).json({ message: "Bed already occupied" });
-    }
-
+    // check patient
     const patient = await Patient.findById(patientId);
 
     if (!patient) {
       return res.status(404).json({ message: "Patient not found" });
     }
 
-    // update bed
-    bed.status = "occupied";
-    bed.assignedPatient = patientId;
-    await bed.save();
+    // atomic update
+    const bed = await Bed.findOneAndUpdate(
+      { _id: bedId, status: "available" }, // only if available
+      {
+        status: "occupied",
+        assignedPatient: patientId
+      },
+      { new: true }
+    );
+
+    if (!bed) {
+      return res.status(400).json({ message: "Bed already occupied" });
+    }
 
     // update patient
     patient.status = "admitted";
     patient.bedAssigned = bedId;
     patient.admittedAt = new Date();
+
     await patient.save();
 
     res.status(200).json({
