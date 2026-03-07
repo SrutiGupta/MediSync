@@ -1,14 +1,23 @@
 import Patient from "../models/patient.model.js";
+import { getIO } from "../socket/socket.js";
 
 // Create patient
 export const createPatient = async (req, res) => {
   try {
     const patient = await Patient.create(req.body);
     res.status(201).json(patient);
+    const io = getIO();
+
+    io.to("dashboardRoom").emit("patientCreated", patient);
+
+    io.to("dashboardRoom").emit("queueUpdated");
+
+    io.to("dashboardRoom").emit("dashboardUpdated");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get all patients
 export const getAllPatients = async (req, res) => {
@@ -48,6 +57,11 @@ export const updatePatient = async (req, res) => {
     );
 
     res.json(patient);
+    const io = getIO();
+
+    io.to("dashboardRoom").emit("queueUpdated");
+
+    io.to("dashboardRoom").emit("dashboardUpdated")
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
