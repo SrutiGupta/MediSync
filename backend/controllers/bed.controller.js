@@ -1,5 +1,6 @@
 import Bed from "../models/bed.model.js";
 import Patient from "../models/patient.model.js";
+import { getIO } from "../socket/socket.js";
 export const createBed = async (req, res) => {
 try{
     //create beds
