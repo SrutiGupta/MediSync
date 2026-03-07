@@ -38,6 +38,16 @@ const patientSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Bed"
   },
+  priority: {
+  type: String,
+  enum: ["emergency", "serious", "normal"],
+  default: "normal"
+},
+
+arrivalTime: {
+  type: Date,
+  default: Date.now
+},
 
   status: {
     type: String,
