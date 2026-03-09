@@ -3,7 +3,17 @@ import jwt from "jsonwebtoken"
 const isAuth = (req, res, next) => {
   try {
 
-    const token = req.cookies.token
+    let token
+
+    // 1️⃣ Check Authorization header
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1]
+    }
+
+    // 2️⃣ Check cookies
+    else if (req.cookies && req.cookies.token) {
+      token = req.cookies.token
+    }
 
     if (!token) {
       return res.status(401).json({
@@ -18,11 +28,9 @@ const isAuth = (req, res, next) => {
     next()
 
   } catch (error) {
-
     return res.status(401).json({
       message: "Invalid or expired token"
     })
-
   }
 }
 

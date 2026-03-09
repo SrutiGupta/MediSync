@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/", isAuth, authorizeRoles("receptionist","admin"), createPatient);
 
-router.get("/", isAuth, authorizeRoles("doctor","admin"), getAllPatients);
+router.get("/", isAuth, authorizeRoles("doctor","admin","receptionist"), getAllPatients);
 
 router.get("/:id", isAuth, getPatientById);
 

@@ -10,7 +10,7 @@ const bedSchema = new mongoose.Schema({
 
   ward: {
     type: String,
-    enum: ["general", "icu", "emergency"],
+    enum: ["general", "ICU", "emergency"],
     required: true
   },
 

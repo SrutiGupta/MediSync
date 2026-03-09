@@ -12,20 +12,26 @@ const authorizeRoles = (...roles) => {
         })
       }
 
-      if (!roles.includes(user.role)) {
+      // convert roles to lowercase for safe comparison
+      const userRole = user.role.toLowerCase()
+      const allowedRoles = roles.map(role => role.toLowerCase())
+
+      if (!allowedRoles.includes(userRole)) {
         return res.status(403).json({
           message: "Access denied. You do not have permission"
         })
       }
 
+      // attach user to request
+      req.user = user
+
       next()
 
     } catch (error) {
-
       return res.status(500).json({
-        message: "Role authorization error"
+        message: "Role authorization error",
+        error: error.message
       })
-
     }
   }
 }
