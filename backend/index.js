@@ -8,10 +8,14 @@ import patientRoutes from "./routes/patient.routes.js";
 import bedRoutes from "./routes/bed.routes.js";
 import dashboardRoutes from "./routes/dash.routes.js"
 import queueRoutes from "./routes/queue.routes.js";
+import cookieParser from "cookie-parser"
+
 dotenv.config();
 connectDB();
+
 const app=express()
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth",authRoutes)
 app.use("/api/beds", bedRoutes);
 app.use("/api/patients", patientRoutes)

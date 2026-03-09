@@ -1,7 +1,7 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import genToken from "../config/token.js"
-
+ 
 export const SignUp=async (req,res)=>{
      try{const {name,email,password,role}=req.body;
      const userExist = await User.findOne({email});
