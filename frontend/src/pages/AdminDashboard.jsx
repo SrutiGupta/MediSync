@@ -13,6 +13,7 @@ import BedsTable from '../components/admin/BedsTable'
 import PatientsOverviewTable from '../components/admin/PatientsOverviewTable'
 import AddBedModal from '../components/admin/AddBedModal'
 import api from '../services/api'
+import socket from '../socket/socket'
 
 const STAT_CONFIG = [
   {
@@ -129,6 +130,29 @@ export default function AdminDashboard() {
     fetchStats()
     fetchBeds()
     fetchPatients()
+  }, [fetchStats, fetchBeds, fetchPatients])
+
+  // ── Socket.IO real-time updates ───────────────────────────
+  useEffect(() => {
+    socket.emit('joinDashboard')
+
+    const refresh = () => {
+      fetchStats()
+      fetchBeds()
+      fetchPatients()
+    }
+
+    socket.on('bedAssigned', refresh)
+    socket.on('bedReleased', refresh)
+    socket.on('dashboardUpdated', refresh)
+    socket.on('patientCreated', refresh)
+
+    return () => {
+      socket.off('bedAssigned', refresh)
+      socket.off('bedReleased', refresh)
+      socket.off('dashboardUpdated', refresh)
+      socket.off('patientCreated', refresh)
+    }
   }, [fetchStats, fetchBeds, fetchPatients])
 
   // â”€â”€ Bed CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

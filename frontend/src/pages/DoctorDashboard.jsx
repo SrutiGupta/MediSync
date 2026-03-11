@@ -4,6 +4,7 @@ import DoctorSidebar from '../components/doctor/DoctorSidebar'
 import DoctorNavbar from '../components/doctor/DoctorNavbar'
 import DoctorPatientsTable from '../components/doctor/DoctorPatientsTable'
 import api from '../services/api'
+import socket from '../socket/socket'
 
 const STAT_CONFIG = [
   {
@@ -81,6 +82,28 @@ export default function DoctorDashboard() {
   useEffect(() => {
     fetchStats()
     fetchPatients()
+  }, [fetchStats, fetchPatients])
+
+  // ── Socket.IO real-time updates ───────────────────────────
+  useEffect(() => {
+    socket.emit('joinDashboard')
+
+    const refresh = () => {
+      fetchStats()
+      fetchPatients()
+    }
+
+    socket.on('patientCreated', refresh)
+    socket.on('bedAssigned', refresh)
+    socket.on('bedReleased', refresh)
+    socket.on('dashboardUpdated', refresh)
+
+    return () => {
+      socket.off('patientCreated', refresh)
+      socket.off('bedAssigned', refresh)
+      socket.off('bedReleased', refresh)
+      socket.off('dashboardUpdated', refresh)
+    }
   }, [fetchStats, fetchPatients])
 
   const handleRefresh = () => {

@@ -5,6 +5,7 @@ import ReceptionSidebar from '../components/reception/ReceptionSidebar'
 import ReceptionNavbar from '../components/reception/ReceptionNavbar'
 import QueueTable from '../components/reception/QueueTable'
 import api from '../services/api'
+import socket from '../socket/socket'
 
 const STAT_CONFIG = [
   { key: 'totalPatients', label: 'Total Patients', icon: FaUsers, gradient: 'bg-gradient-to-br from-indigo-500 to-indigo-600' },
@@ -61,6 +62,30 @@ export default function ReceptionDashboard() {
   useEffect(() => {
     fetchStats()
     fetchPatients()
+  }, [fetchStats, fetchPatients])
+
+  // ── Socket.IO real-time updates ───────────────────────────
+  useEffect(() => {
+    socket.emit('joinDashboard')
+
+    const refresh = () => {
+      fetchStats()
+      fetchPatients()
+    }
+
+    socket.on('patientCreated', refresh)
+    socket.on('bedAssigned', refresh)
+    socket.on('bedReleased', refresh)
+    socket.on('queueUpdated', refresh)
+    socket.on('dashboardUpdated', refresh)
+
+    return () => {
+      socket.off('patientCreated', refresh)
+      socket.off('bedAssigned', refresh)
+      socket.off('bedReleased', refresh)
+      socket.off('queueUpdated', refresh)
+      socket.off('dashboardUpdated', refresh)
+    }
   }, [fetchStats, fetchPatients])
 
   return (
