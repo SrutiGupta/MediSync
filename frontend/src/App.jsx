@@ -9,6 +9,7 @@ import AdminBeds from './pages/AdminBeds'
 import AdminAnalytics from './pages/AdminAnalytics'
 import ReceptionDashboard from './pages/ReceptionDashboard'
 import DoctorDashboard from './pages/DoctorDashboard'
+import DoctorPatients from './pages/DoctorPatients'
 import DoctorBeds from './pages/DoctorBeds'
 
 export default function App() {
@@ -67,7 +68,7 @@ export default function App() {
           path="/doctor/patients"
           element={
             <ProtectedRoute>
-              <DoctorDashboard />
+              <DoctorPatients />
             </ProtectedRoute>
           }
         />
