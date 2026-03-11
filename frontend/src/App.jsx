@@ -8,6 +8,9 @@ import AdminDashboard from './pages/AdminDashboard'
 import AdminBeds from './pages/AdminBeds'
 import AdminAnalytics from './pages/AdminAnalytics'
 import ReceptionDashboard from './pages/ReceptionDashboard'
+import ReceptionPatients from './pages/ReceptionPatients'
+import ReceptionAddPatient from './pages/ReceptionAddPatient'
+import ReceptionQueue from './pages/ReceptionQueue'
 import DoctorDashboard from './pages/DoctorDashboard'
 import DoctorPatients from './pages/DoctorPatients'
 import DoctorBeds from './pages/DoctorBeds'
@@ -53,6 +56,30 @@ export default function App() {
           element={
             <ProtectedRoute>
               <ReceptionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reception/add-patient"
+          element={
+            <ProtectedRoute>
+              <ReceptionAddPatient />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reception/patients"
+          element={
+            <ProtectedRoute>
+              <ReceptionPatients />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reception/queue"
+          element={
+            <ProtectedRoute>
+              <ReceptionQueue />
             </ProtectedRoute>
           }
         />
