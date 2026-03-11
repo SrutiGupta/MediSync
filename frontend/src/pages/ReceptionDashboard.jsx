@@ -76,6 +76,7 @@ export default function ReceptionDashboard() {
     socket.on('patientCreated', refresh)
     socket.on('bedAssigned', refresh)
     socket.on('bedReleased', refresh)
+    socket.on('patientDischarged', refresh)
     socket.on('queueUpdated', refresh)
     socket.on('dashboardUpdated', refresh)
 
@@ -83,6 +84,7 @@ export default function ReceptionDashboard() {
       socket.off('patientCreated', refresh)
       socket.off('bedAssigned', refresh)
       socket.off('bedReleased', refresh)
+      socket.off('patientDischarged', refresh)
       socket.off('queueUpdated', refresh)
       socket.off('dashboardUpdated', refresh)
     }

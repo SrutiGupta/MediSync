@@ -144,14 +144,20 @@ export default function AdminDashboard() {
 
     socket.on('bedAssigned', refresh)
     socket.on('bedReleased', refresh)
-    socket.on('dashboardUpdated', refresh)
     socket.on('patientCreated', refresh)
+    socket.on('patientDischarged', refresh)
+    socket.on('bedCreated', refresh)
+    socket.on('bedDeleted', refresh)
+    socket.on('dashboardUpdated', refresh)
 
     return () => {
       socket.off('bedAssigned', refresh)
       socket.off('bedReleased', refresh)
-      socket.off('dashboardUpdated', refresh)
       socket.off('patientCreated', refresh)
+      socket.off('patientDischarged', refresh)
+      socket.off('bedCreated', refresh)
+      socket.off('bedDeleted', refresh)
+      socket.off('dashboardUpdated', refresh)
     }
   }, [fetchStats, fetchBeds, fetchPatients])
 

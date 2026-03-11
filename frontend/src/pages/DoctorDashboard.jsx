@@ -96,12 +96,14 @@ export default function DoctorDashboard() {
     socket.on('patientCreated', refresh)
     socket.on('bedAssigned', refresh)
     socket.on('bedReleased', refresh)
+    socket.on('patientDischarged', refresh)
     socket.on('dashboardUpdated', refresh)
 
     return () => {
       socket.off('patientCreated', refresh)
       socket.off('bedAssigned', refresh)
       socket.off('bedReleased', refresh)
+      socket.off('patientDischarged', refresh)
       socket.off('dashboardUpdated', refresh)
     }
   }, [fetchStats, fetchPatients])

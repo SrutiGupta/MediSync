@@ -12,6 +12,9 @@ try{
       message: "Bed created successfully",
       bed
     });
+    const io = getIO();
+    io.to('dashboardRoom').emit('bedCreated', { bedNumber: bed.bedNumber, ward: bed.ward });
+    io.to('dashboardRoom').emit('dashboardUpdated');
 }
 catch(error)
 {
@@ -73,7 +76,9 @@ const io = getIO();
 
 io.to("dashboardRoom").emit("bedAssigned", {
   bedId: bed._id,
-  patientId: patient._id
+  bedNumber: bed.bedNumber,
+  patientId: patient._id,
+  patientName: patient.name
 });
 
 io.to("dashboardRoom").emit("dashboardUpdated");
@@ -95,14 +100,14 @@ export const releaseBed = async (req, res) => {
     }
 
     const patientId = bed.assignedPatient;
+    let dischargedPatient = null;
 
     if (patientId) {
-
-      await Patient.findByIdAndUpdate(patientId, {
-        status: "discharged",
-        bedAssigned: null
-      });
-
+      dischargedPatient = await Patient.findByIdAndUpdate(
+        patientId,
+        { status: "discharged", bedAssigned: null },
+        { new: false }
+      );
     }
 
     bed.status = "available";
@@ -115,6 +120,11 @@ export const releaseBed = async (req, res) => {
     });
     // socket event
 const io = getIO();
+
+io.to("dashboardRoom").emit("patientDischarged", {
+  patientName: dischargedPatient?.name || 'A patient',
+  bedNumber: bed.bedNumber
+});
 
 io.to("dashboardRoom").emit("bedReleased", {
   bedId
@@ -159,6 +169,10 @@ export const deleteBed = async (req, res) => {
     if (!bed) {
       return res.status(404).json({ message: "Bed not found" });
     }
+
+    const io = getIO();
+    io.to('dashboardRoom').emit('bedDeleted', { bedNumber: bed.bedNumber });
+    io.to('dashboardRoom').emit('dashboardUpdated');
 
     res.status(200).json({ message: "Bed deleted successfully" });
   } catch (error) {

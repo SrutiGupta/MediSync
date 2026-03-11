@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { FaUserTie, FaSignOutAlt, FaBell } from 'react-icons/fa'
+import { FaUserTie, FaSignOutAlt } from 'react-icons/fa'
+import NotificationBell from '../NotificationBell'
 
 export default function ReceptionNavbar({ title = 'Dashboard Overview' }) {
   const navigate = useNavigate()
@@ -18,13 +19,7 @@ export default function ReceptionNavbar({ title = 'Dashboard Overview' }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button
-          type="button"
-          className="relative w-9 h-9 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors"
-        >
-          <FaBell className="w-4 h-4" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-        </button>
+        <NotificationBell />
 
         <div className="w-px h-6 bg-slate-200" />
 
