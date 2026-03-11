@@ -16,7 +16,7 @@ const bedSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["available", "occupied"],
+    enum: ["available", "occupied", "maintenance"],
     default: "available"
   },
 

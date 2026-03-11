@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminBeds from './pages/AdminBeds'
+import AdminAnalytics from './pages/AdminAnalytics'
 import ReceptionDashboard from './pages/ReceptionDashboard'
 import DoctorDashboard from './pages/DoctorDashboard'
 
@@ -25,6 +27,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/beds"
+          element={
+            <ProtectedRoute>
+              <AdminBeds />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/analytics"
+          element={
+            <ProtectedRoute>
+              <AdminAnalytics />
             </ProtectedRoute>
           }
         />

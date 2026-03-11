@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import {
   FaUsers,
   FaUserCheck,
@@ -10,6 +10,8 @@ import AdminSidebar from '../components/admin/AdminSidebar'
 import AdminNavbar from '../components/admin/AdminNavbar'
 import StatsCard from '../components/admin/StatsCard'
 import BedsTable from '../components/admin/BedsTable'
+import PatientsOverviewTable from '../components/admin/PatientsOverviewTable'
+import AddBedModal from '../components/admin/AddBedModal'
 import api from '../services/api'
 
 const STAT_CONFIG = [
@@ -70,60 +72,114 @@ const DEFAULT_STATS = {
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState(DEFAULT_STATS)
-  const [loading, setLoading] = useState(true)
+  const [beds, setBeds] = useState([])
+  const [patients, setPatients] = useState([])
+  const [loadingStats, setLoadingStats] = useState(true)
+  const [loadingBeds, setLoadingBeds] = useState(true)
+  const [loadingPatients, setLoadingPatients] = useState(true)
   const [error, setError] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
+
+  // â”€â”€ Stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const fetchStats = useCallback(async () => {
+    try {
+      const { data } = await api.get('/dashboard/stats')
+      setStats({
+        totalPatients: data.totalPatients ?? 0,
+        admittedPatients: data.admittedPatients ?? 0,
+        waitingPatients: data.waitingPatients ?? 0,
+        availableBeds: data.availableBeds ?? 0,
+        occupiedBeds: data.occupiedBeds ?? 0,
+      })
+    } catch {
+      setError('Failed to load dashboard stats')
+    } finally {
+      setLoadingStats(false)
+    }
+  }, [])
+
+  // â”€â”€ Beds â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const fetchBeds = useCallback(async () => {
+    setLoadingBeds(true)
+    try {
+      const { data } = await api.get('/beds')
+      setBeds(data)
+    } catch {
+      // silently fail â€” error shown in table
+    } finally {
+      setLoadingBeds(false)
+    }
+  }, [])
+
+  // â”€â”€ Patients â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const fetchPatients = useCallback(async () => {
+    setLoadingPatients(true)
+    try {
+      const { data } = await api.get('/patients')
+      // Show latest 10
+      setPatients([...data].reverse().slice(0, 10))
+    } catch {
+      // silently fail
+    } finally {
+      setLoadingPatients(false)
+    }
+  }, [])
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const { data } = await api.get('/dashboard/stats')
-        setStats({
-          totalPatients: data.totalPatients ?? 0,
-          admittedPatients: data.admittedPatients ?? 0,
-          waitingPatients: data.waitingPatients ?? 0,
-          availableBeds: data.availableBeds ?? 0,
-          occupiedBeds: data.occupiedBeds ?? 0,
-        })
-      } catch {
-        setError('Failed to load dashboard data')
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchStats()
-  }, [])
+    fetchBeds()
+    fetchPatients()
+  }, [fetchStats, fetchBeds, fetchPatients])
+
+  // â”€â”€ Bed CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const handleAddBed = async (formData) => {
+    await api.post('/beds', formData)
+    fetchBeds()
+    fetchStats()
+  }
+
+  const handleStatusChange = async (bedId, newStatus) => {
+    try {
+      await api.put(`/beds/${bedId}`, { status: newStatus })
+      setBeds((prev) => prev.map((b) => (b._id === bedId ? { ...b, status: newStatus } : b)))
+      fetchStats()
+    } catch (err) {
+      alert(err?.response?.data?.message ?? 'Failed to update bed status.')
+    }
+  }
+
+  const handleDelete = async (bedId) => {
+    if (!window.confirm('Are you sure you want to delete this bed?')) return
+    try {
+      await api.delete(`/beds/${bedId}`)
+      setBeds((prev) => prev.filter((b) => b._id !== bedId))
+      fetchStats()
+    } catch (err) {
+      alert(err?.response?.data?.message ?? 'Failed to delete bed.')
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-100">
       <AdminSidebar />
       <AdminNavbar />
 
-      {/* Main content — offset for sidebar (w-64) and navbar (h-16) */}
       <main className="ml-64 pt-16 min-h-screen">
         <div className="p-8">
           {/* Page header */}
           <div className="mb-8">
             <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">
-              Welcome back, Admin 👋
+              Welcome back, Admin ðŸ‘‹
             </h1>
             <p className="text-slate-500 mt-1 text-sm">
               Here's a snapshot of your hospital's current status.
             </p>
           </div>
 
-          {/* Loading state */}
-          {loading && (
-            <div className="mb-6 flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4">
-              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin flex-shrink-0" />
-              <p className="text-slate-500 text-sm font-medium">Loading dashboard data...</p>
-            </div>
-          )}
-
           {/* Error state */}
           {error && (
             <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-100 rounded-2xl px-5 py-4">
-              <span className="text-red-400 text-lg flex-shrink-0">⚠️</span>
+              <span className="text-red-400 text-lg flex-shrink-0">âš ï¸</span>
               <p className="text-red-600 text-sm font-medium">{error}</p>
             </div>
           )}
@@ -134,15 +190,32 @@ export default function AdminDashboard() {
               <StatsCard
                 key={config.key}
                 {...config}
-                value={stats[config.key]}
+                value={loadingStats ? 'â€¦' : stats[config.key]}
               />
             ))}
           </div>
 
           {/* Beds table */}
-          <BedsTable />
+          <div className="mb-8">
+            <BedsTable
+              beds={beds}
+              loading={loadingBeds}
+              onStatusChange={handleStatusChange}
+              onDelete={handleDelete}
+              onAddBed={() => setModalOpen(true)}
+            />
+          </div>
+
+          {/* Patients overview */}
+          <PatientsOverviewTable patients={patients} loading={loadingPatients} />
         </div>
       </main>
+
+      <AddBedModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleAddBed}
+      />
     </div>
   )
 }

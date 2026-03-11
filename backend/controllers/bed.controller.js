@@ -126,3 +126,42 @@ io.to("dashboardRoom").emit("dashboardUpdated");
     res.status(500).json({ message: error.message });
   }
 };
+
+// update bed status
+export const updateBed = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const bed = await Bed.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true, runValidators: true }
+    ).populate("assignedPatient");
+
+    if (!bed) {
+      return res.status(404).json({ message: "Bed not found" });
+    }
+
+    res.status(200).json({ message: "Bed updated successfully", bed });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// delete a bed
+export const deleteBed = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const bed = await Bed.findByIdAndDelete(id);
+
+    if (!bed) {
+      return res.status(404).json({ message: "Bed not found" });
+    }
+
+    res.status(200).json({ message: "Bed deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

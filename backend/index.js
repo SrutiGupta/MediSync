@@ -16,7 +16,14 @@ connectDB();
 
 const app=express()
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.) and any localhost port
+    if (!origin || /^http:\/\/localhost(:\d+)?$/.test(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
@@ -31,6 +38,6 @@ const server = http.createServer(app);
 
 // initialize socket
 initSocket(server);
-app.listen (process.env.PORT,()=>{
- console.log(`Server is running on port ${process.env.PORT}`)
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`)
 })

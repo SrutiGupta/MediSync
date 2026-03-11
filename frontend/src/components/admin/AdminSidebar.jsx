@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {
   FaThLarge,
   FaBed,
-  FaUsers,
   FaChartLine,
   FaSignOutAlt,
 } from 'react-icons/fa'
@@ -11,7 +10,6 @@ import { MdLocalHospital } from 'react-icons/md'
 const navItems = [
   { label: 'Dashboard', icon: FaThLarge, to: '/admin/dashboard' },
   { label: 'Beds', icon: FaBed, to: '/admin/beds' },
-  { label: 'Users', icon: FaUsers, to: '/admin/users' },
   { label: 'Analytics', icon: FaChartLine, to: '/admin/analytics' },
 ]
 
