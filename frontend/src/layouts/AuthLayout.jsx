@@ -13,31 +13,33 @@ export default function AuthLayout({ title, subtitle, children }) {
       <div className="w-full md:w-[45%] flex flex-col order-last md:order-first">
 
         {/* Top-left logo bar */}
-        <div className="px-8 py-5 flex items-center gap-3">
+        <div className="px-8 py-5 flex items-start gap-3">
           <img
             src={logo}
             alt="MediSync logo"
-            className="w-9 h-9 rounded-xl object-cover shadow-sm border border-white/40"
+            className="w-12 h-12 rounded-xl object-cover shadow-md border border-white/40 flex-shrink-0"
           />
-          <span className="text-lg font-extrabold tracking-tight text-white drop-shadow">
-            Medi<span className="text-blue-200">sync</span>
-          </span>
+          <div className="leading-tight">
+            <p className="text-2xl font-bold text-white drop-shadow">MediSync</p>
+            <p className="text-sm text-blue-100">Hospital Management System</p>
+          </div>
         </div>
 
         {/* Centered form area */}
         <div className="flex-1 flex items-center justify-center px-6 py-10">
           <div className="w-full max-w-[400px]">
 
-            {/* Page heading */}
-            <div className="mb-7">
-              <h1 className="text-2xl font-bold text-white leading-tight drop-shadow">{title}</h1>
-              {subtitle && (
-                <p className="text-sm text-blue-100 mt-1">{subtitle}</p>
-              )}
-            </div>
+            {/* Page heading (now lives inside the card via children wrapper) */}
 
             {/* Glassmorphism form card */}
-            <div className="backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl shadow-2xl px-7 py-8">
+            <div className="backdrop-blur-xl bg-white/70 border border-white/40 rounded-2xl shadow-2xl px-7 py-8">
+              {/* Card title */}
+              <div className="mb-6 text-center">
+                <h1 className="text-2xl font-bold text-indigo-700 leading-tight">{title}</h1>
+                {subtitle && (
+                  <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+                )}
+              </div>
               {children}
             </div>
 

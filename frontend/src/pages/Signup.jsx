@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import api from '../services/api'
 import AuthLayout from '../layouts/AuthLayout'
 
-// Values must match User model enum: ["admin", "receptionist", "doctor"]
 const ROLES = [
   { label: 'Admin', value: 'admin' },
   { label: 'Receptionist', value: 'receptionist' },
@@ -65,8 +64,8 @@ export default function Signup() {
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Full Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-white mb-1.5">
-            Full name
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+            Full Name
           </label>
           <input
             id="name"
@@ -77,13 +76,13 @@ export default function Signup() {
             value={form.name}
             onChange={handleChange}
             placeholder="Dr. Jane Smith"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition backdrop-blur-sm"
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-white mb-1.5">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
             Email address
           </label>
           <input
@@ -95,13 +94,13 @@ export default function Signup() {
             value={form.email}
             onChange={handleChange}
             placeholder="you@hospital.com"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition backdrop-blur-sm"
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
           />
         </div>
 
         {/* Password */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-white mb-1.5">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">
             Password
           </label>
           <input
@@ -114,13 +113,13 @@ export default function Signup() {
             value={form.password}
             onChange={handleChange}
             placeholder="••••••••"
-            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition backdrop-blur-sm"
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
           />
         </div>
 
         {/* Role */}
         <div>
-          <label htmlFor="role" className="block text-sm font-medium text-white mb-1.5">
+          <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1.5">
             Role
           </label>
           <select
@@ -129,7 +128,7 @@ export default function Signup() {
             required
             value={form.role}
             onChange={handleChange}
-            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition appearance-none backdrop-blur-sm"
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition appearance-none"
           >
             <option value="" disabled>
               Select a role…
@@ -146,7 +145,7 @@ export default function Signup() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-white hover:bg-white/90 disabled:bg-white/50 disabled:cursor-not-allowed text-indigo-600 font-semibold text-sm py-3 rounded-xl transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 shadow-lg mt-1"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white font-semibold text-sm py-3 rounded-xl transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 shadow-md mt-1"
         >
           {loading ? (
             <>
@@ -168,9 +167,9 @@ export default function Signup() {
       </form>
 
       {/* Footer */}
-      <p className="text-center text-sm text-white/80 mt-6">
+      <p className="text-center text-sm text-gray-600 mt-6">
         Already have an account?{' '}
-        <Link to="/login" className="text-white font-bold hover:underline">
+        <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
           Sign in
         </Link>
       </p>
