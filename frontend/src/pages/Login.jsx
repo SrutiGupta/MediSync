@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <AuthLayout
       title="Welcome back"
-      subtitle="Sign in to your MediSync account to continue"
+      subtitle="Sign in to your MediSync account "
     >
       {/* Error banner */}
       {error && (
@@ -68,7 +68,7 @@ export default function Login() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700 mb-1.5"
           >
-            Email address
+            Email 
           </label>
           <input
             id="email"

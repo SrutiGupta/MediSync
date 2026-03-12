@@ -21,7 +21,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-slate-700/60">
         <h1 className="text-xl font-bold tracking-wide flex items-center gap-2">
-          🏥 <span>MediSync</span>
+           <span>MediSync</span>
         </h1>
         <p className="text-xs text-slate-400 mt-1 ml-7">Hospital Management System</p>
       </div>

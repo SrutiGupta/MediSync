@@ -199,7 +199,7 @@ export default function AdminDashboard() {
           {/* Page header */}
           <div className="mb-8">
             <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">
-              Welcome back, Admin ðŸ‘‹
+              Welcome back, Admin
             </h1>
             <p className="text-slate-500 mt-1 text-sm">
               Here's a snapshot of your hospital's current status.

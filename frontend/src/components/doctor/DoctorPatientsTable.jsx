@@ -46,7 +46,7 @@ export default function DoctorPatientsTable({ patients, loading, onRefresh }) {
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <div>
             <h2 className="text-base font-bold text-slate-800">Patient Management</h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-800 mt-0.5">
               {loading ? 'Loading…' : `${patients.length} patient${patients.length !== 1 ? 's' : ''} in record`}
             </p>
           </div>
@@ -121,7 +121,7 @@ export default function DoctorPatientsTable({ patients, loading, onRefresh }) {
                     </td>
 
                     {/* Assigned bed */}
-                    <td className="px-6 py-3.5 text-slate-600 font-mono text-xs">
+                    <td className="px-6 py-3.5 text-slate-700 font-bold text-xs">
                       {patient.bedAssigned?.bedNumber ?? (
                         <span className="text-slate-300">—</span>
                       )}
@@ -149,7 +149,7 @@ export default function DoctorPatientsTable({ patients, loading, onRefresh }) {
                           </button>
                         )}
                         {patient.status === 'discharged' && (
-                          <span className="text-xs text-slate-400 italic">Discharged</span>
+                          <span className="text-xs text-slate-700 italic">Discharged</span>
                         )}
                       </div>
                     </td>
@@ -163,9 +163,6 @@ export default function DoctorPatientsTable({ patients, loading, onRefresh }) {
         {/* Footer */}
         {!loading && patients.length > 0 && (
           <div className="px-6 py-3 border-t border-slate-100">
-            <p className="text-xs text-slate-400">
-              Showing {patients.length} patient{patients.length !== 1 ? 's' : ''}
-            </p>
           </div>
         )}
       </div>

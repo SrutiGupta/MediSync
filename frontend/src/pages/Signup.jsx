@@ -51,7 +51,7 @@ export default function Signup() {
   return (
     <AuthLayout
       title="Create your account"
-      subtitle="Join MediSync and start managing your hospital smarter"
+      subtitle="Join MediSync and start managing your hospital"
     >
       {/* Error banner */}
       {error && (
@@ -83,7 +83,7 @@ export default function Signup() {
         {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
-            Email address
+            Email 
           </label>
           <input
             id="email"

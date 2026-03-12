@@ -121,7 +121,7 @@ export default function DoctorDashboard() {
         <main className="flex-1 overflow-y-auto px-8 py-8 pt-24">
           {/* Page heading */}
           <div className="mb-7">
-            <h2 className="text-2xl font-bold text-slate-800">Welcome, Doctor 👨‍⚕️</h2>
+            <h2 className="text-2xl font-bold text-slate-800">Welcome, Doctor</h2>
             <p className="text-sm text-slate-400 mt-1">Manage patients and bed assignments from here.</p>
           </div>
 

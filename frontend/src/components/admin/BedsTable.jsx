@@ -21,7 +21,7 @@ export default function BedsTable({ beds = [], loading = false, onStatusChange, 
       <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h2 className="text-base font-bold text-slate-800">Beds Overview</h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-700 mt-0.5">
             {loading ? 'Loading…' : `${beds.length} bed${beds.length !== 1 ? 's' : ''} across all wards`}
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function BedsTable({ beds = [], loading = false, onStatusChange, 
               {beds.map((bed) => (
                 <tr key={bed._id} className="hover:bg-slate-50/70 transition-colors duration-100">
                   {/* Bed Number */}
-                  <td className="px-6 py-3.5 font-mono text-xs font-semibold text-slate-600">
+                  <td className="px-6 py-3.5 text-xs font-semibold text-slate-700">
                     {bed.bedNumber}
                   </td>
 
@@ -101,7 +101,7 @@ export default function BedsTable({ beds = [], loading = false, onStatusChange, 
                     <div className="flex items-center gap-3">
                       {/* Status selector — occupied beds are locked; admin cannot set Occupied */}
                       {bed.status === 'occupied' ? (
-                        <span className="text-xs text-slate-400 italic">Locked (patient assigned)</span>
+                        <span className="text-xs text-slate-700 italic">patient assigned</span>
                       ) : (
                         <select
                           value={bed.status}
@@ -134,9 +134,6 @@ export default function BedsTable({ beds = [], loading = false, onStatusChange, 
       {/* Footer */}
       {!loading && beds.length > 0 && (
         <div className="px-6 py-3 border-t border-slate-100">
-          <p className="text-xs text-slate-400">
-            Showing {beds.length} bed{beds.length !== 1 ? 's' : ''}
-          </p>
         </div>
       )}
     </div>

@@ -99,7 +99,7 @@ export default function ReceptionDashboard() {
           {/* Heading */}
           <div className="mb-7 flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800">Welcome, Receptionist 👋</h2>
+              <h2 className="text-2xl font-bold text-slate-800">Welcome, Receptionist </h2>
               <p className="text-sm text-slate-400 mt-1">Register patients and monitor the waiting queue.</p>
             </div>
             <Link

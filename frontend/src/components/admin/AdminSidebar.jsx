@@ -36,14 +36,7 @@ export default function AdminSidebar() {
           </div>
         </div>
       </div>
-
-      {/* Role badge */}
-      <div className="px-5 pt-5 pb-2">
-        <span className="inline-flex items-center gap-1.5 bg-blue-500/10 text-blue-400 text-xs font-semibold px-3 py-1.5 rounded-full border border-blue-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-          Admin Panel
-        </span>
-      </div>
+    
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">

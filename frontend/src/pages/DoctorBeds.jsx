@@ -56,7 +56,7 @@ export default function DoctorBeds() {
           {/* Heading */}
           <div className="mb-7">
             <h2 className="text-2xl font-bold text-slate-800">Bed Availability</h2>
-            <p className="text-sm text-slate-400 mt-1">Read-only view — contact admin to add or remove beds.</p>
+            
           </div>
 
           {error && (
@@ -78,7 +78,7 @@ export default function DoctorBeds() {
           <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
             <div className="px-6 py-4 border-b border-slate-100">
               <h3 className="text-base font-bold text-slate-800">All Beds</h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-700 mt-0.5">
                 {loading ? 'Loading…' : `${beds.length} bed${beds.length !== 1 ? 's' : ''} total`}
               </p>
             </div>
@@ -111,7 +111,7 @@ export default function DoctorBeds() {
                   <tbody className="divide-y divide-slate-50">
                     {beds.map((bed) => (
                       <tr key={bed._id} className="hover:bg-slate-50/70 transition-colors duration-100">
-                        <td className="px-6 py-3.5 font-mono text-xs font-semibold text-slate-600">
+                        <td className="px-6 py-3.5 font-mono text-s font-semibold text-slate-600">
                           {bed.bedNumber}
                         </td>
                         <td className="px-6 py-3.5 text-slate-700 font-medium capitalize">
@@ -125,7 +125,7 @@ export default function DoctorBeds() {
                             {bed.status}
                           </span>
                         </td>
-                        <td className="px-6 py-3.5 text-slate-600">
+                        <td className="px-6 py-3.5 text-slate-800">
                           {bed.assignedPatient?.name ?? (
                             <span className="text-slate-300">—</span>
                           )}
@@ -139,7 +139,7 @@ export default function DoctorBeds() {
 
             {!loading && beds.length > 0 && (
               <div className="px-6 py-3 border-t border-slate-100">
-                <p className="text-xs text-slate-400">Showing {beds.length} beds</p>
+                
               </div>
             )}
           </div>

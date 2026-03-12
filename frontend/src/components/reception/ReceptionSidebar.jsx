@@ -39,13 +39,6 @@ export default function ReceptionSidebar() {
         </div>
       </div>
 
-      {/* Role badge */}
-      <div className="px-5 pt-5 pb-2">
-        <span className="inline-flex items-center gap-1.5 bg-indigo-500/10 text-indigo-400 text-xs font-semibold px-3 py-1.5 rounded-full border border-indigo-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-          Reception Panel
-        </span>
-      </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">

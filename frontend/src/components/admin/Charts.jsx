@@ -7,10 +7,10 @@ import {
 // ── Shared ────────────────────────────────────────────────────────────────────
 function CardShell({ title, subtitle, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-400 p-6">
       <div className="mb-5">
         <h3 className="text-base font-bold text-slate-800">{title}</h3>
-        {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
+        {subtitle && <p className="text-xs text-slate-800 mt-0.5">{subtitle}</p>}
       </div>
       {children}
     </div>

@@ -20,7 +20,10 @@ export default function AuthLayout({ title, subtitle, children }) {
             className="w-12 h-12 rounded-xl object-cover shadow-md border border-white/40 flex-shrink-0"
           />
           <div className="leading-tight">
-            <p className="text-2xl font-bold text-white drop-shadow">MediSync</p>
+            <p className="text-2xl font-bold drop-shadow">
+  <span className="text-white">Medi</span>
+  <span className="text-slate-800">Sync</span>
+</p>
             <p className="text-sm text-blue-100">Hospital Management System</p>
           </div>
         </div>

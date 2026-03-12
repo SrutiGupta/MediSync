@@ -32,18 +32,13 @@ export default function DoctorSidebar() {
           </div>
           <div>
             <h1 className="text-base font-bold tracking-wide text-white">MediSync</h1>
-            <p className="text-[10px] text-slate-400 leading-tight">Hospital Management</p>
+            <p className="text-[10px] text-slate-400 leading-tight">Hospital Management System</p>
           </div>
         </div>
       </div>
 
       {/* Role badge */}
-      <div className="px-5 pt-5 pb-2">
-        <span className="inline-flex items-center gap-1.5 bg-teal-500/10 text-teal-400 text-xs font-semibold px-3 py-1.5 rounded-full border border-teal-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
-          Doctor Panel
-        </span>
-      </div>
+      
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">

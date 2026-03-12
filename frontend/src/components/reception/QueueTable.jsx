@@ -38,8 +38,8 @@ export default function QueueTable({ patients, loading }) {
       <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h2 className="text-base font-bold text-slate-800">Waiting Queue</h2>
-          <p className="text-xs text-slate-400 mt-0.5">
-            {loading ? 'Loading…' : `${queue.length} patient${queue.length !== 1 ? 's' : ''} waiting · sorted by priority`}
+          <p className="text-xs text-slate-700 mt-0.5">
+            {loading ? 'Loading…' : `${queue.length} patient${queue.length !== 1 ? 's' : ''} waiting for beds`}
           </p>
         </div>
         {queue.some((p) => p.priority === 'emergency') && (
@@ -58,9 +58,8 @@ export default function QueueTable({ patients, loading }) {
 
       {!loading && queue.length === 0 && (
         <div className="px-6 py-12 text-center">
-          <p className="text-3xl mb-2">✅</p>
-          <p className="text-slate-500 text-sm font-medium">Queue is empty</p>
-          <p className="text-slate-400 text-xs mt-1">No patients are currently waiting.</p>
+          <p className="text-slate-800 text-bold font-medium">Queue is empty</p>
+          <p className="text-slate-800 text-xs mt-1">No patients are currently waiting.</p>
         </div>
       )}
 
