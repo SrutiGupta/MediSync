@@ -66,7 +66,7 @@ export default function Login() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
+            className="block text-sm font-medium text-white mb-1.5"
           >
             Email address
           </label>
@@ -79,7 +79,7 @@ export default function Login() {
             value={form.email}
             onChange={handleChange}
             placeholder="you@hospital.com"
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition backdrop-blur-sm"
           />
         </div>
 
@@ -87,7 +87,7 @@ export default function Login() {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-slate-700 mb-1.5"
+            className="block text-sm font-medium text-white mb-1.5"
           >
             Password
           </label>
@@ -100,7 +100,7 @@ export default function Login() {
             value={form.password}
             onChange={handleChange}
             placeholder="••••••••"
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            className="w-full px-4 py-2.5 rounded-xl border border-white/30 bg-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition backdrop-blur-sm"
           />
         </div>
 
@@ -108,7 +108,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold text-sm py-3 rounded-xl transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 shadow-sm shadow-blue-200 mt-1"
+          className="w-full bg-white hover:bg-white/90 disabled:bg-white/50 disabled:cursor-not-allowed text-indigo-600 font-semibold text-sm py-3 rounded-xl transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 shadow-lg mt-1"
         >
           {loading ? (
             <>
@@ -141,9 +141,9 @@ export default function Login() {
       </form>
 
       {/* Footer */}
-      <p className="text-center text-sm text-slate-500 mt-6">
+      <p className="text-center text-sm text-white/80 mt-6">
         Don&apos;t have an account?{' '}
-        <Link to="/signup" className="text-blue-600 font-semibold hover:underline">
+        <Link to="/signup" className="text-white font-bold hover:underline">
           Create one
         </Link>
       </p>
