@@ -41,7 +41,7 @@ export default function Login() {
       navigate(destination, { replace: true })
     } catch (err) {
       const message =
-        err.response?.data?.message ?? 'Login failed. Please try again.'
+        err.response?.data?.message ?? err.response?.data?.error ?? 'Login failed. Please try again.'
       setError(message)
     } finally {
       setLoading(false)

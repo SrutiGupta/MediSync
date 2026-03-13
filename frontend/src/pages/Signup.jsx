@@ -41,7 +41,7 @@ export default function Signup() {
       navigate('/login', { replace: true })
     } catch (err) {
       const message =
-        err.response?.data?.message ?? 'Registration failed. Please try again.'
+        err.response?.data?.message ?? err.response?.data?.error ?? 'Registration failed. Please try again.'
       setError(message)
     } finally {
       setLoading(false)
