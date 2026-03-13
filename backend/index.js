@@ -17,14 +17,21 @@ connectDB();
 const app=express()
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, etc.) and any localhost port
-    if (!origin || /^http:\/\/localhost(:\d+)?$/.test(origin)) {
-      callback(null, true)
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "https://medi-sync-xi.vercel.app/"
+    ];
+
+    // allow requests without origin (like Postman or curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
+  credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
