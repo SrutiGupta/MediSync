@@ -1,6 +1,15 @@
 import { io } from 'socket.io-client'
 
-const rawApiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:5000/api'
+const getDefaultSocketBaseUrl = () => {
+  if (import.meta.env.DEV) return 'http://localhost:5000'
+  if (typeof window !== 'undefined') return window.location.origin
+  return ''
+}
+
+const rawSocketUrl =
+  import.meta.env.VITE_SOCKET_URL ??
+  import.meta.env.VITE_API_URL ??
+  getDefaultSocketBaseUrl()
 
 const normalizeApiBaseUrl = (url) => {
   try {
@@ -27,7 +36,7 @@ const normalizeApiBaseUrl = (url) => {
   }
 }
 
-const apiBaseUrl = normalizeApiBaseUrl(rawApiUrl)
+const apiBaseUrl = normalizeApiBaseUrl(rawSocketUrl)
 
 const getSocketServerUrl = (apiUrl) => {
   try {

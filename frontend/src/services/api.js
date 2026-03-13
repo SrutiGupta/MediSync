@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-const rawBaseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:5000/api'
+const getDefaultApiBaseUrl = () => {
+  if (import.meta.env.DEV) return 'http://localhost:5000/api'
+  if (typeof window !== 'undefined') return `${window.location.origin}/api`
+  return '/api'
+}
+
+const rawBaseUrl = import.meta.env.VITE_API_URL ?? getDefaultApiBaseUrl()
 
 const normalizeApiBaseUrl = (url) => {
   try {
