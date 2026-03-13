@@ -19,8 +19,9 @@ app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true)
 
-    const isLocalhost = /^http:\/\/localhost(:\d+)?$/.test(origin)
-    const isProd = origin === "https://medi-sync-neon.vercel.app/"
+    const normalizedOrigin = origin.replace(/\/+$/, '')
+    const isLocalhost = /^http:\/\/localhost(:\d+)?$/.test(normalizedOrigin)
+    const isProd = /^https:\/\/medi-sync(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(normalizedOrigin)
 
     if (isLocalhost || isProd) {
       callback(null, true)
