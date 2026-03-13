@@ -20,7 +20,7 @@ app.use(cors({
     if (!origin) return callback(null, true)
 
     const isLocalhost = /^http:\/\/localhost(:\d+)?$/.test(origin)
-    const isProd = origin === "https://medi-sync-xi.vercel.app"
+    const isProd = origin === "https://medi-sync-neon.vercel.app/"
 
     if (isLocalhost || isProd) {
       callback(null, true)
